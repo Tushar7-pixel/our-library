@@ -1,6 +1,29 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Caveat, Patrick_Hand } from "next/font/google";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Paperback",
+  description: "Personal offline e-reader library, character maps & journal",
+  applicationName: "Paperback",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Paperback",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f8f6f0",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -15,11 +38,6 @@ const patrickHand = Patrick_Hand({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "E-Reader Library",
-  description: "Shared personal e-reader library",
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -27,7 +45,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${caveat.variable} ${patrickHand.variable}`}>
-      <body className="antialiased">{children}</body>
+      <head>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
+      </head>
+      <body className="antialiased">
+        {children}
+        {/* Service Worker Auto-Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js')
+                    .catch(err => console.error('SW registration failed:', err));
+                });
+              }
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }
