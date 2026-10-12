@@ -20,7 +20,7 @@ export interface LibraryItem {
     title: string;
     creator: string;
     status: ShelfStatus;
-    mediaType: mediaType | 'book';
+    mediaType: MediaType | 'book';
     coverId?: string;
     rating?: BookRating;
     series?: string;
