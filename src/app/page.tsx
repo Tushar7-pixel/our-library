@@ -256,7 +256,7 @@ export default function EReaderLibrary() {
           <div className="flex items-center gap-2">
             <Library className="w-5 h-5 text-[#222]" />
             <span className="font-serif font-bold text-sm tracking-tight">
-              Athenaeum
+              Paperback
             </span>
           </div>
           <button
