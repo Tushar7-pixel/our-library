@@ -19,12 +19,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#f8f6f0",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
+// Next.js downloads these at build time -> stored locally -> 100% offline
 const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-handwriting",
